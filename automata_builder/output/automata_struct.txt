@@ -1,0 +1,1 @@
+{"estados": [8, 9, 10, 11], "simbolos": ["0", "1"], "inicio": 8, "aceptacion": 11, "transiciones": [[8, "0", 9], [10, "1", 11]]}
