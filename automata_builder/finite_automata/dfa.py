@@ -19,7 +19,7 @@ transitions = []
 state_trans = {
 }
 
-approved_ids = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+# approved_ids = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 def fill_transitions(tree):
     transitions = tree.automata['transitions']
@@ -35,25 +35,25 @@ def fill_transitions(tree):
 
 def iter_approved_ids():
     if len(state_trans) == 0:
-        return approved_ids[0]
+        return 1
     else:
         in_list = []
         for value in state_trans:
             in_list.append(value)
         in_list.sort()
-        return approved_ids[approved_ids.index(in_list[-1]) + 1]
+        return in_list[-1] + 1
 
 
 
 def iter_approved_ids_overload(local_state_trans):
     if len(local_state_trans) == 0:
-        return approved_ids[0]
+        return 1
     else:
         in_list = []
         for value in local_state_trans:
             in_list.append(value)
         in_list.sort()
-        return approved_ids[approved_ids.index(in_list[-1]) + 1]
+        return in_list[-1] + 1
 
 
 def transitions_as_state(tree, state_trans_modified):
