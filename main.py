@@ -42,12 +42,13 @@ def fill_markers():
     for pair in pairs:
         MARKERS[pair[0]] = delta_finder(pair[0], pair[1])
 
-input_file = str_translation()
-fill_markers()
-
-print(MARKERS['CHARACTERS'])
 
 # parse the input found in the input files into segments
+input_file = str_translation()
 
 # delimitate the segments found via enters and parse each based on criteria
+fill_markers()
+
+# delimitate the productions found in characters
+print(MARKERS['CHARACTERS'])
 

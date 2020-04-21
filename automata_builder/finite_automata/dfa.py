@@ -196,3 +196,20 @@ def generate_dfa(tree):
         comp_status = check_if_continue_loop(true_state_trans)
 
     return (true_state_trans, transitions)
+
+
+def dfa_to_printable(dfa, trans):
+    n_start_end = []
+    n_transitions = []
+
+    for state in dfa:
+        # if its completion state append it to the printable completion states
+        if dfa[state]['completion_state'] == 1:
+            n_start_end.append([state, state])
+        # generate the transitions in this state based on the trans arra
+        for t in range(len(trans)):
+            # different from zero because it points somewhere
+            if dfa[state]['transitions'][t] != 0:
+                n_transitions.append([state, trans[t], dfa[state]['transitions'][t]])
+
+    return n_start_end, n_transitions

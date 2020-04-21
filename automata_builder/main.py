@@ -20,11 +20,12 @@ from libs.txtgen import get_params_for_txt, dict_to_txt
 # for gui
 from libs.gui import menu
 # for DFA generation
-from finite_automata.dfa import fill_transitions, iter_approved_ids, generate_dfa
+from finite_automata.dfa import fill_transitions, iter_approved_ids, generate_dfa, dfa_to_printable
 
 # base values
 # regular_expression = '(b|b)* a b b (a|b)*'
-regular_expression = '0 1'
+regular_expression = 'A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z|a|b|c|d|e|f|test'
+# regular_expression = '0 1'
 w_chain = '01'
 exit = 0
 
@@ -66,12 +67,17 @@ while (exit == 0):
         fill_transitions(tree)
         
         dfa_generated, transitions = generate_dfa(tree)
-        print(dfa_generated)
+        # print(dfa_generated)
+        # print(transitions)
+        dfa_startend, dfa_transitions = dfa_to_printable(dfa_generated, transitions)
+
+
 
         # TODO: REMOVE THIS
         # automata_to_print_cleanup(tree)
         # print using the nod lib
-        graficadora(tree.automata['transitions'], tree.automata['start_end'])
+        # graficadora(tree.automata['transitions'], tree.automata['start_end'])
+        graficadora(dfa_transitions, dfa_startend)
 
 
 
