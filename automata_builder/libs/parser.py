@@ -85,7 +85,3 @@ def pre_parse_input(text_array):
                     value = '0'
                 new_array.append(value)
     return new_array
-# test_clause2 = '(a|b)* palabra palabra palabra'
-# test_clause = '(palabra (letra|letra)* a a b)* a'
-# a = parse_input(test_clause)
-# print(a)

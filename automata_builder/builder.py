@@ -1,9 +1,9 @@
 import copy
 
-from libs.parser import parse_input
-from tree.node import Node
+from .libs.parser import parse_input
+from .tree.node import Node
 
-from finite_automata.automata import automata_template, create_or, create_and, create_kleene, create_plus, create_qmark
+from .finite_automata.automata import automata_template, create_or, create_and, create_kleene, create_plus, create_qmark
 
 # construct the tree based on the highest priority on the first level first
 

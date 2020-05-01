@@ -1,4 +1,4 @@
-from tree.node import Node
+from ..tree.node import Node
 
 COUNT =[10]
 

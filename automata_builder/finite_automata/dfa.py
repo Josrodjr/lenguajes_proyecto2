@@ -12,7 +12,7 @@
 # }
 
 import copy
-from libs.tform import get_eclosure, e_closure, mov, emulate_NFA, check_completion
+from ..libs.tform import get_eclosure, e_closure, mov, emulate_NFA, check_completion
 
 transitions = []
 
