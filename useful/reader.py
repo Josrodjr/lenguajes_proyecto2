@@ -1,6 +1,9 @@
 import copy
 # lib for useful methods used in main parser
 
+# lib for the generation of DFA of a single string
+# from automata_builder.export import generate_DFA
+
 def parse_findings_plus(whole_string):
     # three conditions always meet
     # 1) the production starts with an identifier found before the = sign
@@ -136,6 +139,7 @@ def tform_op_DFA_ready(array_of_characters, index):
         else:
             result_array[array_index] += value
     
+
     for parsed_value_index in range(len(result_array)):
         # contains CHR
         if 'CHR' in result_array[parsed_value_index]:
@@ -146,6 +150,8 @@ def tform_op_DFA_ready(array_of_characters, index):
 
             # transform the found integer into ar ordinal value
             result_array[parsed_value_index] = chr(int(value))
+            result_array[parsed_value_index] += '|'
+            result_array[parsed_value_index] += chr(int(value))
 
         # contains '..'
         elif '..' in result_array[parsed_value_index]:
@@ -166,6 +172,15 @@ def tform_op_DFA_ready(array_of_characters, index):
 
         elif result_array[parsed_value_index] in left_ops:
             continue
+
+        elif len(result_array[parsed_value_index]) == 1 and result_array[parsed_value_index] not in left_ops and len(result_array) == 1:
+            # only a single digit in the mix
+            complete_string = result_array[parsed_value_index]
+            complete_string += '|'
+            # append
+            complete_string += result_array[parsed_value_index]
+
+            result_array[parsed_value_index] = complete_string
 
         else:
             complete_string = ''
@@ -192,3 +207,34 @@ def return_all_ops_DFA(array_of_characters):
         array_of_characters_copy[i]['right_operand'] = tform_op_DFA_ready(array_of_characters, i)
     
     return array_of_characters_copy
+
+
+def simplify_characters(array_of_chars):
+    complete_characters = {}
+
+    for index in range(len(array_of_chars)):
+        op_dict = array_of_chars[index]
+        if len(op_dict['right_operand']) == 1:
+            # only a single op in the array
+            complete_characters[op_dict['left_operand']] = op_dict['right_operand'][0]
+        else:
+            # generate the new substring based on the other characters
+            substring = ''
+            for right_operand in op_dict['right_operand']:
+                # check if value exists in complete characters
+                if right_operand in complete_characters:
+                    if substring == '':
+                        substring = complete_characters[right_operand]
+                    else:
+                        substring += '|'
+                        substring += complete_characters[right_operand]
+                else:
+                    if substring == '':
+                        substring = right_operand
+                    else:
+                        substring += '|'
+                        substring += right_operand
+            # append the substring as normal
+            complete_characters[op_dict['left_operand']] = substring
+
+    return complete_characters

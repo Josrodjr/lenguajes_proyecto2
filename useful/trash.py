@@ -74,3 +74,48 @@ def parse_findings(whole_string):
                 # DO NOT APPEND AND START OVER
     return found_data
 
+# def tform_dfa_all(array_of_characters):
+#     # left values
+#     left_values = []
+#     for index in range(len(array_of_characters)):
+#         left_values.append(array_of_characters[index]['left_operand'])
+#     # resultin DFA array
+
+#     # characters array
+#     result = []
+
+#     temp_array = []
+
+#     for index in range(len(array_of_characters)):
+#         # generate a DFA of the value in right operand
+#         for dfa_possible_object in array_of_characters[index]['right_operand']:
+#             # check if the dfa_possible object exists in the array of characters
+#             if dfa_possible_object in left_values:
+#                 continue
+#             else:
+#                 if dfa_possible_object == '\n|\n':
+#                     print("yes \n")
+#                     dfa_generated = generate_DFA('\n|\n')
+#                     temp_array.append(dfa_generated)
+#                 elif dfa_possible_object == '\t|\t':
+#                     print("yes \n")
+#                     dfa_generated = generate_DFA('\t|\t')
+#                     temp_array.append(dfa_generated)
+#                 elif dfa_possible_object == '\r|\r':
+#                     dfa_generated = generate_DFA('\r|\r')
+#                     temp_array.append(dfa_generated)
+#                 else:
+#                     # not found the possible dfa object in the current characters 
+#                     dfa_generated = generate_DFA(dfa_possible_object)
+#                     temp_array.append(dfa_generated)
+#             # append the resultin array 
+#         result.append(
+#             {
+#                 'id': array_of_characters[index]['left_operand'],
+#                 'automatas': temp_array
+#             }
+#         )
+#         # empty the temp array
+#         temp_array = []
+    
+#     return result

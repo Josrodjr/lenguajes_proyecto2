@@ -2,7 +2,7 @@ import sys
 
 
 # imports of local created libs
-from useful.reader import parse_findings_plus, filter_right, tform_op_DFA_ready, return_all_ops_DFA
+from useful.reader import parse_findings_plus, filter_right, tform_op_DFA_ready, return_all_ops_DFA, simplify_characters
 
 
 # DFA managements
@@ -57,34 +57,34 @@ input_file = str_translation()
 # delimitate the segments found via enters and parse each based on criteria
 fill_markers()
 
-# delimitate the productions found in characters
-# print(MARKERS['CHARACTERS'])
 
 # perform a split of the values found in the character split
 array_of_characters = parse_findings_plus(MARKERS['CHARACTERS'])
-
+# perform a spit of the values found inthe keywords
+array_of_keywords = parse_findings_plus(MARKERS['KEYWORDS'])
 # perform the split of values found in the tokens 
 array_of_tokens = parse_findings_plus(MARKERS['TOKENS'])
 
             
 # filter the operands
 array_of_characters = filter_right(array_of_characters)
+array_of_keywords = filter_right(array_of_keywords)
 array_of_tokens = filter_right(array_of_tokens)
 
-
-# NO LONGER IN USE
-# dfa_ready_array = tform_op_DFA_ready(array_of_characters)
+print(array_of_keywords)
 
 # perform changes in all right operands so they are ready for DFA
 array_of_characters = return_all_ops_DFA(array_of_characters)
 
 # tranform the array into a DFA approach
 # TODO
-test = generate_DFA(array_of_characters[2]['right_operand'][0])
-
-print(test)
+array_of_characters = simplify_characters(array_of_characters)
 
 # Store the values to the parsed format
 MARKERS['CHARACTERS'] = array_of_characters
 
 # print(MARKERS['CHARACTERS'])
+# print(MARKERS['KEYWORDS'])
+
+# try to generate a dfa
+# print(generate_DFA(MARKERS['CHARACTERS']['letter']))
