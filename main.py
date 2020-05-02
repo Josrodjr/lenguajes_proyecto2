@@ -1,12 +1,17 @@
 import sys
-
+import pickle
 
 # imports of local created libs
-from useful.reader import parse_findings_plus, filter_right, tform_op_DFA_ready, return_all_ops_DFA, simplify_characters
+from useful.reader import parse_findings_plus, filter_right, tform_op_DFA_ready, return_all_ops_DFA,  return_all_ops_DFA_kwords, simplify_characters
+from useful.reader import make_tokens_statement
 
 
 # DFA managements
 from automata_builder.export import generate_DFA
+
+
+# graficadora
+from automata_builder.libs.grafo import graficadora
 
 INPUT_FILE = ''
 OUTPUT_NAME = ''
@@ -71,20 +76,37 @@ array_of_characters = filter_right(array_of_characters)
 array_of_keywords = filter_right(array_of_keywords)
 array_of_tokens = filter_right(array_of_tokens)
 
-print(array_of_keywords)
-
 # perform changes in all right operands so they are ready for DFA
 array_of_characters = return_all_ops_DFA(array_of_characters)
+array_of_keywords = return_all_ops_DFA_kwords(array_of_keywords)
 
 # tranform the array into a DFA approach
-# TODO
+
 array_of_characters = simplify_characters(array_of_characters)
+array_of_keywords = simplify_characters(array_of_keywords)
+
+# After build in transform on characters and keywords we need to transform the tokens into a DFA type
+array_of_tokens = make_tokens_statement(array_of_tokens, array_of_characters, array_of_keywords)
 
 # Store the values to the parsed format
 MARKERS['CHARACTERS'] = array_of_characters
+MARKERS['KEYWORDS'] = array_of_keywords
+MARKERS['TOKENS'] = array_of_tokens
 
 # print(MARKERS['CHARACTERS'])
 # print(MARKERS['KEYWORDS'])
+# print(MARKERS['TOKENS'])
 
 # try to generate a dfa
-# print(generate_DFA(MARKERS['CHARACTERS']['letter']))
+# trans = generate_DFA(MARKERS['TOKENS']['ident'])
+# graficadora(trans['dfa_transitions'], trans['startend'])
+
+
+for token in MARKERS['TOKENS']:
+    MARKERS['TOKENS'][token] = generate_DFA(MARKERS['TOKENS'][token])
+
+# pickle the results for the scanner
+pickle_out = open( "output/"+OUTPUT_NAME+".pickle","wb")
+pickle.dump(MARKERS['TOKENS'], pickle_out)
+pickle_out.close()
+

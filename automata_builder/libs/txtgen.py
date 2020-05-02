@@ -55,6 +55,6 @@ def get_params_for_txt(tree):
 
 
 def dict_to_txt(dict, name):
-    with open('./output/' + str(name) + '.txt', 'w') as file:
+    with open('./graphs/' + str(name) + '.txt', 'w') as file:
         file.write(json.dumps(dict))
     return 0

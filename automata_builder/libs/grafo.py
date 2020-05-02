@@ -1,8 +1,8 @@
 from graphviz import Digraph
 
 def graficadora(transiciones, estados_finales):
-    f = Digraph('graph', filename='./output/graph.gv')
-    f.attr(rankdir='LR', size='8,5')
+    f = Digraph('graph', filename='./graphs/graph.gv')
+    f.attr(rankdir='LR', size='105')
     f.attr('node', shape='doublecircle')
 
     for i in range(len(estados_finales)):
