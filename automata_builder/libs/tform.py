@@ -72,6 +72,49 @@ def emulate_NFA(textstring, tree):
         return 'no'
 
 
+def mov_DFA(transitions, states, character):
+    reachable_states = set()
+    # iterate over the transitions searching for reachable states of first state
+    for transition in transitions:
+        for state in states:
+            if transition[0] == state:
+                # transition start is same as one of the eclosure 
+                if transition[1] == character:
+                    reachable_states.add(transition[2])
+
+    # iterate over the found reachable states until something changes
+    return reachable_states
+
+
+def emulate_DFA(startend, transitions, text_string):
+    # get all the completion states in the DFA
+    completion_states = []
+    for val in startend:
+        completion_states.append(val[0])
+
+    # all DFA start in 1
+    state = set()
+    state.add(1)
+
+    # iterate over the string 
+    for char in text_string:
+        mov_states = mov_DFA(transitions, state, char)
+
+        if len(mov_states) == 0:
+            return 0
+        
+        # empty state and replace with mov states
+        state = set()
+        for value in mov_states:
+            state.add(value)
+        
+    # completed the run of all chars
+    for state_completed in state:
+        if state_completed in completion_states:
+            return 1
+    return 0
+
+
 def check_completion(e_closure, complete_state):
     if complete_state in e_closure:
         return 1

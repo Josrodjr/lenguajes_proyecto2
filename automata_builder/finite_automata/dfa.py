@@ -16,8 +16,8 @@ from ..libs.tform import get_eclosure, e_closure, mov, emulate_NFA, check_comple
 
 transitions = []
 
-state_trans = {
-}
+# state_trans = {
+# }
 
 # approved_ids = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
@@ -33,12 +33,12 @@ def fill_transitions(tree):
     return trans
 
 
-def iter_approved_ids():
-    if len(state_trans) == 0:
+def iter_approved_ids(true_state_trans):
+    if len(true_state_trans) == 0:
         return 1
     else:
         in_list = []
-        for value in state_trans:
+        for value in true_state_trans:
             in_list.append(value)
         in_list.sort()
         return in_list[-1] + 1
@@ -158,7 +158,7 @@ def generate_dfa(tree):
 
 
     transitions = fill_transitions(tree)
-    current_value = iter_approved_ids()
+    current_value = iter_approved_ids(true_state_trans)
     #perform a epsilon on the starting state of the nfa
     init_state = tree.automata['start_end'][0][0]
     complete_state = tree.automata['start_end'][1][0]
@@ -181,13 +181,13 @@ def generate_dfa(tree):
                 new_eclosure.add(new_value)
         e_transitions.append(new_eclosure)        
     # append the values to the state_trans
-    state_trans[current_value] = {
+    true_state_trans[current_value] = {
             'state_id': first_transitions,
             'transitions': e_transitions,
             'completion_state': completion_state
     }
     # TODO: remove state trans
-    true_state_trans = state_trans
+    true_state_trans = true_state_trans
     comp_status = check_if_continue_loop(true_state_trans)
     while comp_status != 1:
         true_state_trans = transitions_as_state(tree, true_state_trans)

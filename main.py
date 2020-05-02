@@ -1,5 +1,6 @@
 import sys
 import pickle
+import copy
 
 # imports of local created libs
 from useful.reader import parse_findings_plus, filter_right, tform_op_DFA_ready, return_all_ops_DFA,  return_all_ops_DFA_kwords, simplify_characters
@@ -24,8 +25,7 @@ MARKERS = {
 }
 
 if len(sys.argv) != 3:
-    # sys.exit()
-    INPUT_FILE = 'HexNumber.ATG'
+    sys.exit()
 
 try:
     INPUT_FILE = sys.argv[1]
@@ -98,15 +98,21 @@ MARKERS['TOKENS'] = array_of_tokens
 # print(MARKERS['TOKENS'])
 
 # try to generate a dfa
-# trans = generate_DFA(MARKERS['TOKENS']['ident'])
+# trans = generate_DFA(MARKERS['TOKENS']['number'])
 # graficadora(trans['dfa_transitions'], trans['startend'])
 
 
 for token in MARKERS['TOKENS']:
-    MARKERS['TOKENS'][token] = generate_DFA(MARKERS['TOKENS'][token])
+    copy_of_regex = copy.deepcopy(MARKERS['TOKENS'][token])
+    dfa_generated = generate_DFA(copy_of_regex)
+    MARKERS['TOKENS'][token] = dfa_generated
+
+
+# graficadora(MARKERS['TOKENS']['number']['dfa_transitions'], MARKERS['TOKENS']['number']['startend'])
 
 # pickle the results for the scanner
-pickle_out = open( "output/"+OUTPUT_NAME+".pickle","wb")
+# pickle_out = open( "output/"+OUTPUT_NAME+".pickle","wb")
+pickle_out = open( "output/production.pickle","wb")
 pickle.dump(MARKERS['TOKENS'], pickle_out)
 pickle_out.close()
 
