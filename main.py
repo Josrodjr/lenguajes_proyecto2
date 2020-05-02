@@ -108,7 +108,7 @@ for token in MARKERS['TOKENS']:
     MARKERS['TOKENS'][token] = dfa_generated
 
 
-# graficadora(MARKERS['TOKENS']['number']['dfa_transitions'], MARKERS['TOKENS']['number']['startend'])
+graficadora(MARKERS['TOKENS']['number']['dfa_transitions'], MARKERS['TOKENS']['number']['startend'])
 
 # pickle the results for the scanner
 # pickle_out = open( "output/"+OUTPUT_NAME+".pickle","wb")

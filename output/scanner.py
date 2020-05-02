@@ -35,9 +35,6 @@ for line in input_file:
 
 print(parsed_input)
 
-# a = token_dfas['ident']['startend']
-# b = token_dfas['ident']['dfa_transitions']
-# print(emulate_DFA(a, b, 'AA'))
 
 def emulate_all_DFA(text_string):
     found_completion = 0
