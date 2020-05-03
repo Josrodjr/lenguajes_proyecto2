@@ -98,8 +98,19 @@ MARKERS['TOKENS'] = array_of_tokens
 # print(MARKERS['TOKENS'])
 
 # try to generate a dfa
-# trans = generate_DFA(MARKERS['TOKENS']['number'])
+
 # graficadora(trans['dfa_transitions'], trans['startend'])
+
+print("comenzo")
+
+# trans = generate_DFA('letter (letter|digit)*')
+trans = generate_DFA('A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z (A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|0|1|2|3|4|5|6|7|8|9)*')
+graficadora(trans['dfa_transitions'], trans['startend'])
+
+
+print("funciono")
+
+print(MARKERS['TOKENS']['ident'])
 
 
 for token in MARKERS['TOKENS']:
@@ -108,11 +119,13 @@ for token in MARKERS['TOKENS']:
     MARKERS['TOKENS'][token] = dfa_generated
 
 
-graficadora(MARKERS['TOKENS']['number']['dfa_transitions'], MARKERS['TOKENS']['number']['startend'])
+# graficadora(MARKERS['TOKENS']['number']['dfa_transitions'], MARKERS['TOKENS']['number']['startend'])
 
 # pickle the results for the scanner
 # pickle_out = open( "output/"+OUTPUT_NAME+".pickle","wb")
 pickle_out = open( "output/production.pickle","wb")
 pickle.dump(MARKERS['TOKENS'], pickle_out)
+
+
 pickle_out.close()
 

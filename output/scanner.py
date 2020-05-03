@@ -88,12 +88,12 @@ def scan(input_string):
                     # none of the values are useful to the grammar move on
                     last_complete_state = character
                 elif token_name != 0 and completion == 0:
-                    tokens_array.append([test_completion_string, token_name])
+                    tokens_array.append([test_completion_string[:-1], token_name])
                     last_complete_state = character
                 else:
                     # current value is the last value that makes complete a dfa and next doesnt satisfy
                     # append the test completion string and the token it found into the array
-                    tokens_array.append([test_completion_string, token_name])
+                    tokens_array.append([test_completion_string[:-1], token_name])
                     # reset the index for search of next token
                     last_complete_state = character
 

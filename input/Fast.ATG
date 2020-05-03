@@ -2,8 +2,8 @@ COMPILER Aritmetica
 
 CHARACTERS 
 
-letter = "ABCDEFG". 
-digit = "012345" .
+letter = "asdfqw". 
+digit = "789456" .
 tab = CHR(9).
 eol = CHR(10).
 
